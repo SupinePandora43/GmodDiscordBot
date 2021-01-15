@@ -23,7 +23,7 @@ namespace GmodDiscordBot.Test
 
             var cfg = new DiscordConfiguration
             {
-                Token = "Nzk0MTY0MjMyMDE0NjU5NjM0.X-21Ew.1kaphM3s7EJ0DuXGsI_HLvVqpcc",
+                Token = "",
                 TokenType = TokenType.Bot,
 
                 AutoReconnect = true//,
