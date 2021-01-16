@@ -1,8 +1,10 @@
 ﻿using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using System.Timers;
 
@@ -23,7 +25,7 @@ namespace GmodDiscordBot.Test
 
             var cfg = new DiscordConfiguration
             {
-                Token = "",
+                Token = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText("token.json"))["token"],
                 TokenType = TokenType.Bot,
 
                 AutoReconnect = true//,
@@ -62,9 +64,10 @@ namespace GmodDiscordBot.Test
                     Timestamp = DateTimeOffset.Now
                 };
                 embed.AddField("Players", "14/60");
-                //DiscordMessage msg = await Client.SendMessageAsync(channel, embed: embed);
-                DiscordMessage msg = await channel.GetMessageAsync(794221029298798614);
-                await msg.ModifyAsync(embed: embed.Build());
+                DiscordMessage msg = await Client.SendMessageAsync(channel, embed: embed);
+                await msg.RespondAsync("yoooo");
+                //DiscordMessage msg = await channel.GetMessageAsync(794221029298798614);
+                //await msg.ModifyAsync(embed: embed.Build());
                 ready = true;
             };
 

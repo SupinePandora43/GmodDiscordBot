@@ -12,12 +12,17 @@ namespace GmodDiscordBot
         [Aliases("айпи", "аипи", "айпй", "аипй", "ип", "йп", "ипи", "йпй", "ипй", "йпи")]
         public async Task Ip(CommandContext ctx)
         {
+            await ctx.TriggerTypingAsync();
             DiscordEmbedBuilder embedBuilder = new();
             embedBuilder.WithColor(new DiscordColor(255, 255, 0));
             embedBuilder.WithTitle("steam://connect/188.120.248.55:27015/");
             embedBuilder.WithImageUrl("https://sun9-35.userapi.com/7eCcJt14QGKYgGQRyqzJc7Q9CXJ7FoQ4ZbP4Kg/EzLYCxN9sDo.jpg");
             embedBuilder.AddField("Players", "10 / 85");
-            await ctx.RespondAsync("steam://connect/0.0.0.0:0", embed: embedBuilder.Build());
+            DiscordMessageBuilder discordMessageBuilder = new();
+            discordMessageBuilder.WithReply(ctx.Message.Id);
+            discordMessageBuilder.WithEmbed(embedBuilder.Build());
+            await discordMessageBuilder.SendAsync(ctx.Channel);
+            //await ctx.RespondAsync("steam://connect/0.0.0.0:0", embed: embedBuilder.Build());
         }
 
         [Command("content")]
